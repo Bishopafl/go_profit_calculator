@@ -7,24 +7,44 @@ func main() {
 	var expenses float64
 	var taxRate float64
 
+	var revenueLabel string = "Revenus: "
+	var expensesLabel string = "Expenses: "
+	var taxRateLabel string = "Tax Rate: "
+
+	revenue = askAndSetValue(revenueLabel)
+	expenses = askAndSetValue(expensesLabel)
+	taxRate = askAndSetValue(taxRateLabel)
+
+	ebt := calculateEbt(revenue, expenses)
+	profit := calculateProfit(ebt, taxRate)
+	ratio := determineRatio(ebt, profit)
+
+	outputValue(ebt)
+	outputValue(profit)
+	outputValue(ratio)
+
+}
+
+func askAndSetValue(v string) (re float64) {
 	// send pointer with & before var name
-	fmt.Print("Revenus: ")
-	fmt.Scan(&revenue)
+	fmt.Print(v)
+	fmt.Scan(&re)
+	return re
+}
 
-	// send pointer with & before var name
-	fmt.Print("Expenses: ")
-	fmt.Scan(&expenses)
+func calculateEbt(revenue, expenses float64) (ebt float64) {
+	ebt = revenue - expenses
+	return ebt
+}
 
-	// send pointer with & before var name
-	fmt.Print("Tax Rate: ")
-	fmt.Scan(&taxRate)
+func calculateProfit(ebt, taxRate float64) (profit float64) {
+	return ebt * (1 - taxRate/100)
+}
 
-	ebt := revenue - expenses
-	profit := ebt * (1 - taxRate/100)
-	ratio := ebt / profit
+func determineRatio(ebt, profit float64) (r float64) {
+	return ebt / profit
+}
 
-	fmt.Println(ebt)
-	fmt.Println(profit)
-	fmt.Println(ratio)
-
+func outputValue(iv float64) {
+	fmt.Println(iv)
 }
